@@ -22,7 +22,7 @@
                     'nombre' => $nombre,
                     'empresa' => $empresa,
                     'telefono' => $telefono,
-                    'info' => $stmt->insert_id
+                    'id_insertado' => $stmt->insert_id
                     )
                 );
             }
@@ -36,5 +36,4 @@
 
         echo json_encode($respuesta);
     }
-
 ?>

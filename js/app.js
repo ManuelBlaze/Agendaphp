@@ -6,6 +6,9 @@ eventListeners();
 function eventListeners() {
     // Cuando el formulario de crear o editar se ejecutan
     formularioContactos.addEventListener('submit', leerFormulario);
+
+    //Eliminar el boton
+    listadoContactos.addEventListener('click', eliminarContacto);
 }
 
 function leerFormulario(e) {
@@ -48,7 +51,7 @@ function insertarBD(datos) {
     const xhr = new XMLHttpRequest();
 
     //abrir conexion
-    xhr.open('POST', 'includes/modelos/modelo-contacto.php', true);
+    xhr.open('POST', 'includes/modelos/crear-contacto.php', true);
 
     //pasar los datos
     xhr.onload = function () {
@@ -56,7 +59,7 @@ function insertarBD(datos) {
             console.log(JSON.parse(xhr.responseText));
             //leemos la respuesta de php
             const respuesta = JSON.parse(xhr.responseText);
-
+            console.log(respuesta.datos.id_insertado);
             //Inserta un nuevo contacto a la tabla en el index
             const nuevoContacto = document.createElement('tr');
 
@@ -109,6 +112,46 @@ function insertarBD(datos) {
 
     //enviar los datos
     xhr.send(datos);
+}
+
+//Eliminar un contacto
+function eliminarContacto(e) {
+    if (e.target.parentElement.classList.contains('btn-borrar')) {
+        //Tomar el id
+        const id = e.target.parentElement.getAttribute('data-id');
+        // console.log(id);
+        //preguntar al usuario
+        const respuesta = confirm('¿Deseas BORRAR el Contacto?');
+        if (respuesta) {
+            //Llamado a AJAX
+            //Crear objeto
+            const xhr = new XMLHttpRequest();
+
+            //Abrir Conexion
+            xhr.open('GET', `includes/modelos/borrar-contacto.php?id=${id}&accion=borrar`, true);
+
+            //Leer respuesta
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    const resultado = JSON.parse(xhr.responseText);
+
+                    if (resultado.respuesta === 'correcto') {
+                        //Eliminar el registro del DOM
+                        e.target.parentElement.parentElement.parentElement.remove();
+
+                        //Mostrar Notificación
+                        mostrarNotificacion('Contacto Eliminado', 'exito');
+                    } else {
+                        //mostrar Notificación
+                        mostrarNotificacion('Hubo un Error....', 'error');
+                    }
+                }
+            }
+
+            //Enviar la peticion
+            xhr.send();
+        }
+    }
 }
 
 //Notificacion en pantalla
