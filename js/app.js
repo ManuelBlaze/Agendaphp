@@ -1,4 +1,5 @@
-const formularioContactos = document.querySelector('#contacto');
+const formularioContactos = document.querySelector('#contacto'),
+    listadoContactos = document.querySelector('#listado-contactos tbody');
 
 eventListeners();
 
@@ -36,8 +37,6 @@ function leerFormulario(e) {
         } else {
             //Editar contacto
         }
-
-        mostrarNotificacion('Contacto Creado con Exito', 'exito');
     }
 }
 
@@ -58,7 +57,53 @@ function insertarBD(datos) {
             //leemos la respuesta de php
             const respuesta = JSON.parse(xhr.responseText);
 
-            console.log(respuesta.empresa);
+            //Inserta un nuevo contacto a la tabla en el index
+            const nuevoContacto = document.createElement('tr');
+
+            nuevoContacto.innerHTML = `
+                <td>${respuesta.datos.nombre}</td>
+                <td>${respuesta.datos.empresa}</td>
+                <td>${respuesta.datos.telefono}</td>
+            `;
+
+            //crear contenedor para los botones
+            const contenedorAcciones = document.createElement('td');
+
+            //crear el icono de editar
+            const iconoEditar = document.createElement('i');
+            iconoEditar.classList.add('fas', 'fa-pen');
+            //crear el enlace para editar
+            const btnEditar = document.createElement('a');
+            btnEditar.appendChild(iconoEditar);
+            btnEditar.href = `editar.php?id=${respuesta.datos.id_insertado}`;
+            btnEditar.classList.add('btn-editar', 'btn');
+
+            //Agregarlo al padre
+            contenedorAcciones.appendChild(btnEditar);
+
+            //Crear icono de eliminar
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.classList.add('fas', 'fa-trash');
+            //Crear boton de eliminar
+            const btnEliminar = document.createElement('button');
+            btnEliminar.appendChild(iconoEliminar);
+            btnEliminar.setAttribute('data-id', respuesta.datos.id_insertado);
+            btnEliminar.classList.add('btn-borrar', 'btn');
+
+            //Agregarlo al padre
+            contenedorAcciones.appendChild(btnEliminar);
+
+            //Agregarlo el tr
+            nuevoContacto.appendChild(contenedorAcciones);
+
+            //Agregarlo con los contactos
+            listadoContactos.appendChild(nuevoContacto);
+
+            //Resetear el Form
+            document.querySelector('form').reset();
+
+            //Mostrar notificacion
+            mostrarNotificacion('Contacto Creado Correctamente', 'exito');
         }
     }
 

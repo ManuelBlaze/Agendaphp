@@ -120,6 +120,10 @@ form legend {
     text-align: center;
 }
 
+.editar form legend {
+    margin-bottom: 2rem;
+}
+
 legend span {
     font-size: 1rem;
     margin-top: 1rem;

@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class="bg-amarillo contenedor sombra">
+<div class="bg-amarillo contenedor sombra editar">
     <form id="contacto" action="#">
         <legend>Edite el contacto</legend>
 
