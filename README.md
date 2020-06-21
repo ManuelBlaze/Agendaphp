@@ -1,6 +1,4 @@
-# Agenda-php
- 
- <h1>Proyecto: Agenda de Contactos</h1>
+<h1>Proyecto: Agenda de Contactos</h1>
  <p>CRUD dinámico y responsive con conexión a Bd </p>
  <p>Tecnologías utilizadas</p>
  <ul>
