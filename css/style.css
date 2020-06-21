@@ -255,11 +255,20 @@ legend span {
 /** Notificaciones **/
 .notificacion {
     position: fixed;
-    top: 1rem;
+    top: 15rem;
     right: 1rem;
+    left: 1rem;
     padding: 1rem 3rem;
     opacity: 0;
     transition: opacity .5s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .notificacion {
+        top: 1rem;
+        right: 1rem;
+        left: unset;
+    }
 }
 
 .visible {
