@@ -41,6 +41,10 @@ function leerFormulario(e) {
             insertarBD(infoContacto);
         } else {
             //Editar contacto
+            //Leer id
+            const idRegistro = document.querySelector('#id').value;
+            infoContacto.append('id', idRegistro);
+            actualizarRegistro(infoContacto);
         }
     }
 }
@@ -113,6 +117,39 @@ function insertarBD(datos) {
     }
 
     //enviar los datos
+    xhr.send(datos);
+}
+
+//Actualizar contacto
+function actualizarRegistro(datos) {
+    //Llamado a AJAX
+    //Crear objeto
+    const xhr = new XMLHttpRequest();
+
+    //Abrir Conexion
+    xhr.open('POST', 'includes/modelos/editar-contacto.php', true);
+
+    //Leer respuesta
+    xhr.onload = function () {
+        if (this.status === 200) {
+            const respuesta = JSON.parse(xhr.responseText);
+
+            if (respuesta.respuesta === 'correcto') {
+                //mostrar notificacion de Correcto
+                mostrarNotificacion('Contacto Editado Correctamente', 'exito');
+            } else {
+                //hubo un error
+                mostrarNotificacion('Hubo un Error...', 'error');
+            }
+
+            //Después de 3 s redireccionar
+            setTimeout(() => {
+                window.location.href = 'index.php'
+            }, 2000);
+        }
+    }
+
+    //Enviar la peticion
     xhr.send(datos);
 }
 
