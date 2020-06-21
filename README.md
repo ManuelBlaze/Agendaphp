@@ -10,7 +10,3 @@
   <li>PHP</li>
   <li>MYSQL</li>
  </ul>
- <br>
- <h3><a hfref="https://raw.githubusercontent.com/ManuelBlaze/Agendaphp/master/agendaphp.sql">Estructura de la BD</a></h3>
-
- 
