@@ -252,8 +252,31 @@ legend span {
     border: none;
 }
 
-/** Footer **/
+/** Notificaciones **/
+.notificacion {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 1rem 3rem;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+}
 
+.visible {
+    opacity: 1;
+}
+/*Colores Notificaciones*/
+.error {
+    background-color: rgb(238,148,166);
+    color: rgb(163,0,33);
+}
+
+.exito {
+    background-color: rgb(179,241,117);
+    color: green;
+}
+
+/** Footer **/
 footer {
     position: absolute;
     left: 0;
